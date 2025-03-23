@@ -92,7 +92,7 @@ def make_sidebar():
                     dbc.Row([
                         dbc.Col([
                             dbc.Label("Relationship Coefficient"),
-                            dbc.Input(type="number", min=-10, max=10, value=-0.01, step=0.01, id="rel-coef-a", style={"backgroundColor": input_background_color}),
+                            dbc.Input(type="number", min=-10, max=10, value=-0.05, step=0.01, id="rel-coef-a", style={"backgroundColor": input_background_color}),
                         ]),
                     ]),
                     dbc.FormText("Set the relationship coefficient."),
@@ -115,7 +115,7 @@ def make_sidebar():
                     dbc.Row([
                         dbc.Col([
                             dbc.Label("Noise"),
-                            dbc.Input(type="number", min=-4, max=4, value=.5, step=.1, id="cv-noise-a", style={"backgroundColor": input_background_color}),
+                            dbc.Input(type="number", min=-4, max=4, value=1, step=.1, id="cv-noise-a", style={"backgroundColor": input_background_color}),
                         ]),
                         dbc.Col([
                             dbc.Label("Change (-5 to 5)"),
