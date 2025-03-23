@@ -2,3 +2,5 @@ dash
 plotly
 pandas
 gunicorn==19.7.1
+dash_bootstrap_components
+dash_ag_grid
