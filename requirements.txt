@@ -8,3 +8,4 @@ ipython
 tqdm
 scipy
 lifelines
+numpy
