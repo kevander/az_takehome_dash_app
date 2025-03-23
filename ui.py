@@ -22,6 +22,9 @@ def make_layout():
                         'height': '900px'  # Sets a fixed height
                     }
                   ),
+        html.Hr(),
+        # add centered title of table here
+        html.H2(children='Cox Time-Varying Proportional Hazard Results', style={'textAlign':'center'}),
         # add table here
         dag.AgGrid(
             id='cox-results',
@@ -44,6 +47,7 @@ def make_sidebar():
         "width": "22rem",
         "padding": "2rem 1rem",
         "background-color": "#f8f9fa",
+        "overflow-y": "auto"
     }
     input_background_color = '#EAF2F8'
 
@@ -213,13 +217,13 @@ def make_sidebar():
                 [
                     dbc.AccordionItem([
                         group_a_inputs
-                    ], title=html.B('Group A Parameters')
+                    ], item_id='accordion-a', title=html.H4(html.B('Group A Parameters'))
                 ), 
                 dbc.AccordionItem([
                         group_b_inputs
-                    ], title=html.B('Group B Parameters')
+                    ], item_id='accordion-b', title=html.H4(html.B('Group B Parameters'))
                 ),
-                ])
+                ], active_item='accordion-b')
         ],
         style=SIDEBAR_STYLE,
     )
