@@ -65,7 +65,7 @@ def update_graph(n_a = 500,
                  cv_change_over_time_b = -3
                  ):
     # Low Dependency Simulation 
-    low_dep_sim = simulation.Simulation(sim_name='low_dependency',
+    low_dep_sim = simulation.Simulation(sim_name='Group A',
                                         n=n_a,
                                         n_visits=n_visits_a,
                                         event_rate=event_rate_a,
@@ -78,7 +78,7 @@ def update_graph(n_a = 500,
                                         )
     low_dep_cv_data, low_dep_death_data = low_dep_sim.simulate()
     # High Dependency Simulation
-    high_dep_sim = simulation.Simulation(sim_name='high_dependency',
+    high_dep_sim = simulation.Simulation(sim_name='Group B',
                                         n=n_b,
                                         n_visits=n_visits_b,
                                         event_rate=event_rate_b,

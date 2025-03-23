@@ -15,7 +15,7 @@ CONTENT_STYLE = {
 # make dash app layout
 def make_layout():
     layout = html.Div(children=[
-        html.H1(children='Title of Dash App', style={'textAlign':'center'}),
+        html.H1(children='AZ Take-Home Data Simulation', style={'textAlign':'center'}),
         dcc.Graph(id='graph-content',
                       style={
                         'width': '100%',  # Takes full width of container
@@ -74,12 +74,12 @@ def make_sidebar():
                     dbc.Row([
                         dbc.Col([
                             dbc.Label(["Baseline Rate", html.Br(), "(0-1)"]),
-                            dbc.Input(type="number", min=0, max=1, value=.05, step=0.01, id="event-rate-baseline-a", style={"backgroundColor": input_background_color}),
+                            dbc.Input(type="number", min=0, max=1, value=.01, step=0.001, id="event-rate-baseline-a", style={"backgroundColor": input_background_color}),
                         ]),
                         dbc.Col([
                             # Number of the visits
                             dbc.Label("Per Visit Change (-1-1)"),
-                            dbc.Input(type="number", min=-1, max=1, value=-.01, step=0.001, id="event-rate-change-a", style={"backgroundColor": input_background_color}),
+                            dbc.Input(type="number", min=-1, max=1, value=.01, step=0.001, id="event-rate-change-a", style={"backgroundColor": input_background_color}),
                         ])
                     ]),
                     dbc.FormText("Set the baseline event rate (0-1) and the per-visit change (-1 - 1)."),
@@ -152,12 +152,12 @@ def make_sidebar():
                     dbc.Row([
                         dbc.Col([
                             dbc.Label(["Baseline Rate", html.Br(), "(0-1)"]),
-                            dbc.Input(type="number", min=0, max=1, value=.05, step=0.01, id="event-rate-baseline-b", style={"backgroundColor": input_background_color}),
+                            dbc.Input(type="number", min=0, max=1, value=.01, step=0.001, id="event-rate-baseline-b", style={"backgroundColor": input_background_color}),
                         ]),
                         dbc.Col([
                             # Number of the visits
                             dbc.Label("Per Visit Change (-1-1)"),
-                            dbc.Input(type="number", min=-1, max=1, value=-.01, step=0.001, id="event-rate-change-b", style={"backgroundColor": input_background_color}),
+                            dbc.Input(type="number", min=-1, max=1, value=.01, step=0.001, id="event-rate-change-b", style={"backgroundColor": input_background_color}),
                         ])
                     ]),
                     dbc.FormText("Set the baseline event rate (0-1) and the per-visit change (-1 - 1)."),
@@ -170,7 +170,7 @@ def make_sidebar():
                     dbc.Row([
                         dbc.Col([
                             dbc.Label("Relationship Coefficient"),
-                            dbc.Input(type="number", min=-10, max=10, value=-0.01, step=0.01, id="rel-coef-b", style={"backgroundColor": input_background_color}),
+                            dbc.Input(type="number", min=-10, max=10, value=-0.01, step=0.001, id="rel-coef-b", style={"backgroundColor": input_background_color}),
                         ]),
                     ]),
                     dbc.FormText("Set the relationship coefficient."),
