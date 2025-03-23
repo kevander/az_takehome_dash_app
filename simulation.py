@@ -16,10 +16,53 @@ class Simulation:
     ----------
     n : int
         Desired number of patients.
+
     n_visits: int
-        Desired number of visits per patient.
-    r: float
-        Desired correlation between baseline features and time to death
+        Desired number of visits across the study.
+
+    event_rate: float
+        range: (0 - 1)
+        Baseline event rate PER VISIT.
+        For instance, if the event rate is 0.10, then 10% of patients will experience an event at each visit.
+
+    event_rate_change_rate: float
+        range: (0-1)
+        The rate at which the event rate changes over time.
+        For instance, if the event rate is 0.10 and the event_rate_change_rate is 0.01, then the event rate will increase by 1% each visit.
+
+    cv_mean: float
+        The mean of the continuous variable.
+
+    cv_sd: float
+        The standard deviation of the continuous variable.
+
+    cv_change_over_time: float
+        range: (-inf, inf)
+        unit: CV standard deviations
+        Set the rate of change of the continuous variable over time.
+        The code will take this value and divide it by the number of visits to get the change at each visit.
+        For instance, if cv_change_over_time is -2, then the continuous variable will decrease by 2 standard deviations over the course of the study.
+
+    cv_noise_sd: float
+        The standard deviation of the noise added to the continuous variable at each visit.
+        If this is set to zero, then the CV for each patient will be a perfect linear trajectory.
+        
+    relationship_coefficient: float
+        The strength of the relationship between the continuous variable and the event rate.
+
+        If this is set to zero, then the event rate is independent of the continuous variable.
+        If this is set to a positive value, then the event rate increases as the continuous variable increases.
+        If this is set to a negative value, then the event rate decreases as the continuous variable increases.
+
+        This directly maps to the beta coefficient in a logistic regression model that modulates the 
+        relationship between the continuous variable and the event rate.
+    
+    patient_id_start_idx: int
+        The starting index for patient IDs.
+        This is useful if you want to simulate multiple arms and want to ensure that the patient IDs are unique across arms.
+
+    seed: int
+        The random seed for reproducibility.
     '''
     def __init__(self,  
                  sim_name: str, 
@@ -79,6 +122,9 @@ class Simulation:
                 cv_noise_sd: float, 
                 relationship_coefficient: float):
         
+        # set seed
+        np.random.seed(self.seed)
+        
         # baseline continuous variable 
         cv_baseline = np.random.normal(loc=cv_mean, 
                                         scale=cv_sd, 
@@ -129,7 +175,7 @@ class Simulation:
                 epsilon = 1e-10  # Small value to prevent division by zero
                 event_rate_safe = np.clip(event_rate, epsilon, 1-epsilon)
                 bias_term = np.log((1-event_rate_safe)/event_rate_safe) 
-                event_prob = 1 / (1 + np.exp(bias_term + relationship_coefficient * (visit_values - cv_mean) ))
+                event_prob = 1 / (1 + np.exp(bias_term + -relationship_coefficient * (visit_values - cv_mean) ))
                 event_prob = np.clip(event_prob, 0, 1)  # Ensure probabilities are between 0 and 1
 
                 events = np.random.binomial(n=1, p=event_prob, size=arm_n)
@@ -286,6 +332,19 @@ class Simulation:
                     )
                 )
         
+        fig.add_annotation(
+            x=1.14,
+            y=0.03,
+            yref='paper',
+            xref='paper',
+            text='N Events (%)',
+            showarrow=False,
+            font=dict(
+                size=14,
+                color='black'
+            )
+        )
+
         # make sure that each visit gets a tick
         fig.update_xaxes(tickmode='array', tickvals=plot_df['visit'].unique())
 
